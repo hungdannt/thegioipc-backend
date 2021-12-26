@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Category, CategoryDocument } from './schemas/category.schema';
-import { CategoryDto } from './dtos/category-dto';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { Category, CategoryDocument } from "./schemas/category.schema";
+import { CategoryDto } from "./dtos/category-dto";
 
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectModel(Category.name) private catModel: Model<CategoryDocument>,
+    @InjectModel(Category.name) private catModel: Model<CategoryDocument>
   ) {}
 
   async create(categoryDto: CategoryDto): Promise<Category> {
@@ -21,10 +21,19 @@ export class CategoryService {
       .exec();
   }
 
-  async findAll(): Promise<Category[]> {
-    return this.catModel.find().exec();
+  async findAll(): Promise<any> {
+    const data = await this.catModel.find().exec();
+    const paginatorInfo = {};
+
+    return { ...paginatorInfo, data };
   }
 
+  async findChildrenBySlug(parent: any): Promise<any> {
+    const data = await this.catModel.find({ parent: parent.parent }).exec();
+    const paginatorInfo = {};
+
+    return { ...paginatorInfo, data };
+  }
   async findOne(id: string): Promise<Category> {
     return this.catModel.findById(id).exec();
   }

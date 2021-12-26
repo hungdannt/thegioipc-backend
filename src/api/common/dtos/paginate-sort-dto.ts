@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Type } from "class-transformer";
 
 export class PaginateDto {
   @IsNotEmpty()
@@ -22,4 +22,9 @@ export class PaginateDto {
 
   @Type(() => String)
   search: string;
+
+  @Type(() => Number)
+  page: number;
+
+  category: string;
 }

@@ -1,4 +1,4 @@
-import { IsArray, IsDecimal, IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsArray, IsDecimal, IsMongoId, IsNotEmpty } from "class-validator";
 
 export class ProductDto {
   @IsNotEmpty()
